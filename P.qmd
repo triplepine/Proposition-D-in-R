@@ -1,0 +1,68 @@
+---
+title: "Proposition D inR"
+subtitle: "generate random numbers from the U(0,1) and then use proposition D to generate random numbers from a particular distribution"
+format: html
+editor: visual
+---
+
+## 2.67 extra problems
+
+### cdf: F(x)=1-exp(-x\^4)
+
+### pdf: f(x)=4x\^3\*exp(-x\^4)
+
+### a) generate 10000 random values ( alpha=1, beta=4)
+
+```{r}
+# set seed 
+set.seed(123)
+#store numbers to graph
+n <-10000
+u <-runif(n=n,min=0,max=1)
+```
+
+```{r}
+### create a histomgram to check this matches the pdf
+hist(u,main="Histogram of 10000 Random U(0,1)", freq=FALSE)
+
+#define X = inverse F(U)
+X <- (-log(1-u))^(1/4)
+
+# check the pdf estimate matches up
+hist(X, breaks=seq(from=0,to=3, by=0.05),main="estimate of pdf of X", freq=FALSE)
+# pdf: 
+#overlay true distribution
+curve(4*x^3 *exp(-x^4), from=0, to=3, add=TRUE, lwd=2)
+```
+
+```{r}
+#check the cdf matches up
+plot(ecdf(X),ylab="CDF estimate",xlab="x",main="CDF estimate",xlim=c(0,3),lwd=2)
+#overlay true cdf
+curve(1-exp(-x^4), from=0, to=3, add=TRUE, lty=2, col="Blue",lwd=2)
+```
+
+### b) use the random values to find the probability that X is between 0.2 and 0.8 and compare to the exact value
+
+```{r}
+sum_0.2_0.8 <- sum(X<0.8)-sum(X<0.2) 
+# calculate the probability 
+sum_0.2_0.8/length(X)
+
+# compare to the truth
+# Calculate the integral of the pdf from 0.2 to 0.8
+
+pdf <- function(x){ 4 * x^3 * exp(-x^4) } 
+result <- integrate(pdf, lower = 0.2, upper = 0.8) 
+result$value
+```
+
+### c) use the random values to estimate Q1,M,and Q3
+
+```{r}
+# the estimate Q1,M,and Q3
+round(quantile(X,probs=c(0.25,0.5,0.75)),3)
+
+# exact Q1,M,and Q3
+round(c((-log(1-0.25))^(1/4),(-log(1-0.5))^(1/4),(-log(1-0.75))^(1/4)),3)
+```
