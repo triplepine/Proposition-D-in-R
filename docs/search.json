@@ -1,14 +1,14 @@
 [
   {
-    "objectID": "P.html",
-    "href": "P.html",
+    "objectID": "PropositionD.html",
+    "href": "PropositionD.html",
     "title": "Proposition D inR",
     "section": "",
     "text": "# set seed \nset.seed(123)\n#store numbers to graph\nn &lt;-10000\nu &lt;-runif(n=n,min=0,max=1)\n\n\n### create a histomgram to check this matches the pdf\nhist(u,main=\"Histogram of 10000 Random U(0,1)\", freq=FALSE)\n\n\n\n\n\n\n\n#define X = inverse F(U)\nX &lt;- (-log(1-u))^(1/4)\n\n# check the pdf estimate matches up\nhist(X, breaks=seq(from=0,to=3, by=0.05),main=\"estimate of pdf of X\", freq=FALSE)\n# pdf: \n#overlay true distribution\ncurve(4*x^3 *exp(-x^4), from=0, to=3, add=TRUE, lwd=2)\n\n\n\n\n\n\n\n\n\n#check the cdf matches up\nplot(ecdf(X),ylab=\"CDF estimate\",xlab=\"x\",main=\"CDF estimate\",xlim=c(0,3),lwd=2)\n#overlay true cdf\ncurve(1-exp(-x^4), from=0, to=3, add=TRUE, lty=2, col=\"Blue\",lwd=2)\n\n\n\n\n\n\n\n\n\n\n\n\nsum_0.2_0.8 &lt;- sum(X&lt;0.8)-sum(X&lt;0.2) \n# calculate the probability \nsum_0.2_0.8/length(X)\n\n[1] 0.3356\n\n# compare to the truth\n# Calculate the integral of the pdf from 0.2 to 0.8\n\npdf &lt;- function(x){ 4 * x^3 * exp(-x^4) } \nresult &lt;- integrate(pdf, lower = 0.2, upper = 0.8) \nresult$value\n\n[1] 0.3344855\n\n\n\n\n\n\n# the estimate Q1,M,and Q3\nround(quantile(X,probs=c(0.25,0.5,0.75)),3)\n\n  25%   50%   75% \n0.735 0.909 1.080 \n\n# exact Q1,M,and Q3\nround(c((-log(1-0.25))^(1/4),(-log(1-0.5))^(1/4),(-log(1-0.75))^(1/4)),3)\n\n[1] 0.732 0.912 1.085"
   },
   {
-    "objectID": "P.html#extra-problems",
-    "href": "P.html#extra-problems",
+    "objectID": "PropositionD.html#extra-problems",
+    "href": "PropositionD.html#extra-problems",
     "title": "Proposition D inR",
     "section": "",
     "text": "# set seed \nset.seed(123)\n#store numbers to graph\nn &lt;-10000\nu &lt;-runif(n=n,min=0,max=1)\n\n\n### create a histomgram to check this matches the pdf\nhist(u,main=\"Histogram of 10000 Random U(0,1)\", freq=FALSE)\n\n\n\n\n\n\n\n#define X = inverse F(U)\nX &lt;- (-log(1-u))^(1/4)\n\n# check the pdf estimate matches up\nhist(X, breaks=seq(from=0,to=3, by=0.05),main=\"estimate of pdf of X\", freq=FALSE)\n# pdf: \n#overlay true distribution\ncurve(4*x^3 *exp(-x^4), from=0, to=3, add=TRUE, lwd=2)\n\n\n\n\n\n\n\n\n\n#check the cdf matches up\nplot(ecdf(X),ylab=\"CDF estimate\",xlab=\"x\",main=\"CDF estimate\",xlim=c(0,3),lwd=2)\n#overlay true cdf\ncurve(1-exp(-x^4), from=0, to=3, add=TRUE, lty=2, col=\"Blue\",lwd=2)\n\n\n\n\n\n\n\n\n\n\n\n\nsum_0.2_0.8 &lt;- sum(X&lt;0.8)-sum(X&lt;0.2) \n# calculate the probability \nsum_0.2_0.8/length(X)\n\n[1] 0.3356\n\n# compare to the truth\n# Calculate the integral of the pdf from 0.2 to 0.8\n\npdf &lt;- function(x){ 4 * x^3 * exp(-x^4) } \nresult &lt;- integrate(pdf, lower = 0.2, upper = 0.8) \nresult$value\n\n[1] 0.3344855\n\n\n\n\n\n\n# the estimate Q1,M,and Q3\nround(quantile(X,probs=c(0.25,0.5,0.75)),3)\n\n  25%   50%   75% \n0.735 0.909 1.080 \n\n# exact Q1,M,and Q3\nround(c((-log(1-0.25))^(1/4),(-log(1-0.5))^(1/4),(-log(1-0.75))^(1/4)),3)\n\n[1] 0.732 0.912 1.085"
